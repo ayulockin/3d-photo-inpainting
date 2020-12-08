@@ -159,11 +159,12 @@ for idx in tqdm(range(len(sample_list))):
 wandb.init(entity='authors', project='3D-Inpainting')
 
 for vid_file in os.listdir('video/'):
-  
-  wandb.log({'{}'.format(vid_file.split('.')[0]): wandb.Video('video/'+vid_file)})
+    if vid_file.endswith('.mp4'):
+        wandb.log({'{}'.format(vid_file.split('.')[0]): wandb.Video('video/'+vid_file)})
 
 for img_file in os.listdir('image/'):
-  wandb.log({'{}'.format(img_file.split('.')[0]): [wandb.Image("image/{}".format(img_file))]})
+    if img_file.endswith(('jpg', 'png')):
+        wandb.log({'{}'.format(img_file.split('.')[0]): [wandb.Image("image/{}".format(img_file))]})
 
 for depth_file in os.listdir('depth/'):
   if depth_file.endswith('.npy'):
