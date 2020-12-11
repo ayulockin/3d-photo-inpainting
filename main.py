@@ -156,7 +156,7 @@ for idx in tqdm(range(len(sample_list))):
                         videos_poses, video_basename, config.get('original_h'), config.get('original_w'), border=border, depth=depth, normal_canvas=normal_canvas, all_canvas=all_canvas,
                         mean_loc_depth=mean_loc_depth)
 
-wandb.init(entity='authors', project='3D-Inpainting')
+wandb.init(entity='authors', project='One-Shot-3D-Photography')
 
 for vid_file in os.listdir('video/'):
     if vid_file.endswith('.mp4'):
