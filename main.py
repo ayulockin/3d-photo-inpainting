@@ -162,12 +162,16 @@ for vid_file in os.listdir('video/'):
     if vid_file.endswith('.mp4'):
         wandb.log({'{}'.format(vid_file.split('.')[0]): wandb.Video('video/'+vid_file)})
 
-for img_file in os.listdir('image/'):
-    if img_file.endswith(('jpg', 'png')):
-        wandb.log({'{}'.format(img_file.split('.')[0]): [wandb.Image("image/{}".format(img_file))]})
+for img_file in os.listdir(config['src_folder']):
+    if img_file.endswith(('.jpg', '.png')):
+        if config['specific'] in img_file:
+            wandb.log({'img_{}'.format(img_file.split('.')[0]): [wandb.Image(config['src_folder']+"/{}".format(img_file))]})
 
-for depth_file in os.listdir('depth/'):
-  if depth_file.endswith('.npy'):
-    depth_img = np.load("depth/{}".format(depth_file))
-    wandb.log({'{}'.format(depth_file.split('.')[0]): [wandb.Image(depth_img)]})
-
+for depth_file in os.listdir(config['depth_folder']):
+    if depth_file.endswith('.npy'):
+        if config['specific'] in depth_file:
+            depth_img = np.load(config['depth_folder']+"/{}".format(depth_file))
+            wandb.log({'depth_npy_{}'.format(depth_file.split('.')[0]): [wandb.Image(depth_img)]})
+    if depth_file.endswith('.png'):
+        if config['specific'] in depth_file:
+            wandb.log({'depth_{}'.format(depth_file.split('.')[0]): [wandb.Image(config['depth_folder']+"/{}".format(depth_file))]})
